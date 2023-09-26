@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './App.css'
 const App = () => {
   const [result, setResult] = useState("");
-
+  const [history, setHistory] = useState([]);
   const handleClick = (e) => {
     setResult(result.concat(e.target.name));
   };
@@ -12,12 +12,22 @@ const App = () => {
   };
 
   const handleEqual = () => {
-    setResult(eval(result).toString());
+    const calculation = result;
+    try {
+      const evalResult = eval(calculation);
+      setResult(evalResult.toString());
+      setHistory([...history, { calculation, result: evalResult }]);
+    } catch (error) {
+      setResult("Error");
   };
-
+   setResult(eval(result).toString());
+  };
+  const handleClearHistory = () => {
+    setHistory([]); // Clear the calculation history
+  };
   return (
     <div className="calculator">
-      <input type="text" value={result} />
+      <input type="text" value={result} className="TextBox" readOnly/>
       <div className="buttons">
         <button name="7" onClick={handleClick}>
           7
@@ -72,7 +82,17 @@ const App = () => {
         <br></br>
         <button name="C" onClick={handleClear}>
           Clear
-        </button>
+          </button>
+          <div className="history">
+        <ul>
+          {history.map((item, index) => (
+            <li key={index}>
+              {item.calculation} = {item.result}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <button name="history Clear" onClick={handleClearHistory}>History Clear</button>
       </div>
     </div>
   );
