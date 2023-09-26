@@ -3,12 +3,19 @@
   width: 100%;
   margin: 0 auto;
   padding: 5%;
+  background-color: brown;
 }
 button{
   font-size: 1.5rem;
+  background-color: black;
+  color:white;
+  width: 120px;
+  padding: 10px;
 }
 .TextBox{
-  width: 100px;
+  width: 470px;
   height: 50px;
   font-size: 1.5rem;
+  background-color: black;
+  color:white;
 }
